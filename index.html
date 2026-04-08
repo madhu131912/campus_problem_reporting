@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Campus Problem Reporting System</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- LOGIN / REGISTER -->
+  <section id="authSection" class="center">
+    <div class="loginCard">
+      <h2>Campus Problem Reporting</h2>
+
+      <div id="loginForm">
+        <input id="username" placeholder="Username">
+        <input id="password" type="password" placeholder="Password">
+        <select id="role">
+          <option value="student">Student</option>
+          <option value="admin">Admin</option>
+        </select>
+        <button onclick="login()">Login</button>
+        <p><a href="#" onclick="showRegister()">Create Account</a></p>
+      </div>
+
+      <div id="registerForm" style="display:none;">
+        <h3>Create Student Account</h3>
+        <input id="regName" placeholder="Full Name">
+        <input id="regUsername" placeholder="Username">
+        <input id="regPassword" type="password" placeholder="Password">
+        <input id="regStudentId" placeholder="Student ID">
+        <button onclick="register()">Register</button>
+        <p><a href="#" onclick="showLogin()">← Back to Login</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- STUDENT DASHBOARD -->
+  <section id="dashboardSection" style="display:none;">
+    <header>Student Dashboard</header>
+    <div class="nav">
+      <a href="#" onclick="showSection('reportSection')">Report Problem</a>
+      <a href="#" onclick="showSection('trackingSection')">Track Problems</a>
+      <a href="#" onclick="showSection('solvedSection')">Solved Problems</a>
+      <a href="#" onclick="logout()">Logout</a>
+    </div>
+
+    <div class="cards">
+      <div class="card"><p>Total</p><h2 id="total"></h2></div>
+      <div class="card"><p>Pending</p><h2 id="pending"></h2></div>
+      <div class="card"><p>Resolved</p><h2 id="resolved"></h2></div>
+    </div>
+  </section>
+
+  <!-- REPORT -->
+  <section id="reportSection" style="display:none;">
+    <header>Report Campus Problem</header>
+    <div class="form">
+      <input id="name" placeholder="Student Name">
+      <input id="location" placeholder="Location">
+      <select id="category">
+        <option>WiFi Issue</option>
+        <option>Classroom Equipment</option>
+        <option>Hostel Maintenance</option>
+        <option>Electricity Issue</option>
+        <option>Washroom Problem</option>
+      </select>
+      <textarea id="description" placeholder="Describe problem"></textarea>
+      <input type="file" id="image">
+      <button onclick="submitProblem()">Submit</button>
+    </div>
+  </section>
+
+  <!-- TRACKING -->
+  <section id="trackingSection" style="display:none;">
+    <header>Pending Problems</header>
+    <div id="list"></div>
+  </section>
+
+  <!-- SOLVED -->
+  <section id="solvedSection" style="display:none;">
+    <header>Solved Problems</header>
+    <div id="solvedList"></div>
+  </section>
+
+  <!-- ADMIN -->
+  <section id="adminSection" style="display:none;">
+    <nav class="navbar">
+      <div class="nav-title">🔧 Admin Panel</div>
+      <ul class="nav-menu">
+        <li class="nav-item">
+          <a href="#" class="nav-link nav-active">📋 All Pending Problems</a>
+        </li>
+      </ul>
+      <a href="#" class="nav-link logout-link" onclick="logout()">🚪 Logout</a>
+    </nav>
+
+    <div class="main-content">
+      <header>Admin Panel - Pending Problems</header>
+      <div id="adminList" style="min-height:400px;"></div>
+    </div>
+  </section>
+
+  <script>
+    function showSection(sectionId) {
+      document.querySelectorAll('section').forEach(sec => sec.style.display = 'none');
+      document.getElementById('dashboardSection').style.display = 'block';
+      document.getElementById(sectionId).style.display = 'block';
+    }
+
+    function logout() {
+      localStorage.removeItem('currentUser');
+      document.querySelectorAll('section').forEach(sec => sec.style.display = 'none');
+      document.getElementById('authSection').style.display = 'block';
+    }
+  </script>
+
+  <script src="script.js"></script>
+</body>
+</html>
